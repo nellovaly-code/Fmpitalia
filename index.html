@@ -31,7 +31,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th,td{padding:10px 4px;
 .carPhotoSmall{width:100%;height:70px;object-fit:contain;border-radius:0;display:block;margin:6px 0;border:0;background:transparent;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5))}
 .codebox{width:96px;height:70px;min-width:96px;min-height:70px;max-width:96px;max-height:70px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;flex-shrink:0;background:transparent;border:0;border-radius:0;overflow:hidden;padding:0;box-sizing:border-box}.codebox img{max-width:90px;max-height:64px;width:auto;height:auto;object-fit:contain;background:transparent;border:0;filter:none;display:block}
 .gprow{display:flex;gap:8px;align-items:center;background:#2A2A2A;padding:10px;border-radius:12px;margin:6px 0}
-.copyColBox{display:inline-flex;vertical-align:middle;margin-left:8px;width:52px;height:44px;border-radius:10px;border:2px solid #fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:none}.copyColBox small{font-size:8px;display:block;line-height:1}.ptsRow{display:flex;gap:8px;align-items:center;background:#2A2A2A;padding:10px;border-radius:12px;margin:6px 0}.ptsRow input{margin:0}
+.copyColBox{display:inline-flex;vertical-align:middle;align-items:center;justify-content:center;width:48px;height:38px;border-radius:9px;border:1.5px solid #fff;flex-shrink:0;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:none;font-size:9px;font-weight:900;line-height:1.1;text-align:center;padding:2px}.copyColBox small{font-size:8px;display:block;line-height:1}.ptsRow{display:flex;gap:8px;align-items:center;background:#2A2A2A;padding:10px;border-radius:12px;margin:6px 0}.ptsRow input{margin:0}
 .ptsChip{display:inline-block;background:#2A2A2A;padding:8px 10px;border-radius:12px;margin:4px 4px 0 0;font-size:12px}
 .colorRow{display:flex;gap:8px;align-items:center}.colorRow input[type=color]{width:60px;height:44px;padding:2px;flex-shrink:0}.colorRow button{flex:1;padding:12px;border:0;border-radius:10px;background:#333;color:#fff;font-weight:800}
 #toast{position:fixed;top:45%;left:50%;transform:translate(-50%,-50%);background:#00E676;color:#000;font-weight:900;padding:18px 26px;border-radius:30px;display:none;z-index:999;font-size:17px;text-align:center}
@@ -226,7 +226,7 @@ var tL={RBR:'',FER:'',MER:'',MCL:'',AST:''};
 var tNC={RBR:'',FER:'',MER:'',MCL:'',AST:''};
 var tCar={RBR:'',FER:'',MER:'',MCL:'',AST:''};
 var tMode={RBR:'text',FER:'text',MER:'text',MCL:'text',AST:'text'};
-var gps=[{c:'BHR',f:'\uD83C\uDDE7\uD83C\uDDED'},{c:'SAU',f:'\uD83C\uDDF8\uD83C\uDDE6'},{c:'AUS',f:'\uD83C\uDDE6\uD83C\uDDFA'},{c:'JPN',f:'\uD83C\uDDEF\uD83C\uDDF5'},{c:'CHN',f:'\uD83C\uDDE8\uD83C\uDDF3'},{c:'MIA',f:'\uD83C\uDDFA\uD83C\uDDF8'}];
+var gps=[{c:'BHR',f:'\uD83C\uDDE7\uD83C\uDDED'},{c:'SAU',f:'\uD83C\uDDF8\uD83C\uDDE6'},{c:'AUS',f:'\uD83C\uDDE6\uD83C\uDDFA'},{c:'JPN',f:'\uD83C\uDDEF\uD83C\uDDF5'},{c:'CHN',f:'\uD83C\uDDE8\uD83C\uDDDF'},{c:'MIA',f:'\uD83C\uDDFA\uD83C\uDDF8'}];
 var pen={},tab='Piloti',sel='';
 function flagMap(){return {BHR:'🇧🇭',SAU:'🇸🇦',JED:'🇸🇦',JEDDAH:'🇸🇦',AUS:'🇦🇺',JPN:'🇯🇵',CHN:'🇨🇳',MIA:'🇺🇸',EMI:'🇮🇹',IMO:'🇮🇹',MON:'🇲🇨',ESP:'🇪🇸',SPA:'🇪🇸',CAN:'🇨🇦',AUT:'🇦🇹',GBR:'🇬🇧',BEL:'🇧🇪',HUN:'🇭🇺',NED:'🇳🇱',ITA:'🇮🇹',AZE:'🇦🇿',SIN:'🇸🇬',USA:'🇺🇸',AUS2:'🇺🇸',MEX:'🇲🇽',BRA:'🇧🇷',LVS:'🇺🇸',VEG:'🇺🇸',QAT:'🇶🇦',ABU:'🇦🇪',FRA:'🇫🇷',GER:'🇩🇪',POR:'🇵🇹',TUR:'🇹🇷',RUS:'🇷🇺',KOR:'🇰🇷',IND:'🇮🇳',MAL:'🇲🇾',ARG:'🇦🇷'}}
 function fixFlags(){var m=flagMap();var rev={};for(var k in m){rev[m[k]]=k}for(var i=0;i<gps.length;i++){var g=gps[i];if(!g)continue;if(rev[g.c]){g.c=rev[g.c];g.f=m[g.c]}if(!g.f||g.f.length<3){if(m[g.c])g.f=m[g.c];else g.f='🏁'}}}
@@ -353,8 +353,79 @@ function gpFotoOptions(){
 
 var copiedCol='';function copyCol(hex){if(!hex)return;copiedCol=hex;var done=function(){var old=document.getElementById('toast');if(old){old.innerHTML='COLORE COPIATO - '+hex+' - incollalo dove vuoi';old.style.display='block';setTimeout(function(){old.style.display='none'},1800);}};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(hex).then(done).catch(function(){prompt('COPIA COLORE - tieni premuto e copia:',hex);});}else{prompt('COPIA COLORE - tieni premuto e copia:',hex);}}
 function holdCopy(el,hex){var _t=null;var _fired=false;var start=function(e){_fired=false;_t=setTimeout(function(){_fired=true;copyCol(hex);},500);};var end=function(){if(_t)clearTimeout(_t);};el.addEventListener('touchstart',start,{passive:true});el.addEventListener('touchend',end);el.addEventListener('touchmove',end);el.addEventListener('mousedown',start);el.addEventListener('mouseup',end);el.addEventListener('mouseleave',end);el.addEventListener('click',function(e){if(_fired){e.preventDefault();e.stopPropagation();}});}
-function attachCopyColor(){var inputs=document.querySelectorAll('input[type="color"]');for(var i=0;i<inputs.length;i++){var inp=inputs[i];if(inp.nextSibling&&inp.nextSibling.className&&String(inp.nextSibling.className).indexOf('copyColBox')>=0)continue;var box=document.createElement('div');box.className='copyColBox';box.style.background=inp.value;box.innerHTML='<span>COPIA<br><small>TIENI<br>PREMUTO</small></span>';box.title='Tieni premuto per copiare '+inp.value;var box2=document.createElement('div');box2.className='copyColBox';box2.style.background=copiedCol||'#333';box2.innerHTML='<span>INCOLLA<br><small>ULTIMO<br>COPIATO</small></span>';box2.title='Incolla ultimo colore copiato';box2.addEventListener('click',function(){if(!copiedCol){alert('Prima copia un colore con COPIA, poi premi INCOLLA qui');return;}inp.value=copiedCol;inp.dispatchEvent(new Event('input',{bubbles:true}));inp.dispatchEvent(new Event('change',{bubbles:true}));if(inp.onchange)inp.onchange.call(inp);});var box3=document.createElement('input');box3.type='text';box3.value=inp.value;box3.style.cssText='width:100px;padding:12px 8px;border:2px solid #fff;border-radius:10px;background:#222;color:#fff;font-weight:900;font-size:13px;text-align:center;border:1px solid #555;margin-left:6px;text-transform:uppercase';box3.placeholder='#FF1A1A';box3.title='Scrivi codice colore, es. #FF1A1A';box3.addEventListener('input',function(){var v=String(box3.value||'').trim();if(v&&v[0]!='#')v='#'+v;if(/^#[0-9A-Fa-f]{6}$/.test(v)){inp.value=v;inp.dispatchEvent(new Event('input',{bubbles:true}));}});box3.addEventListener('change',function(){var v=String(box3.value||'').trim();if(v&&v[0]!='#')v='#'+v;if(/^#[0-9A-Fa-f]{6}$/.test(v)){inp.value=v;inp.dispatchEvent(new Event('input',{bubbles:true}));inp.dispatchEvent(new Event('change',{bubbles:true}));if(inp.onchange)inp.onchange.call(inp);}else{box3.value=inp.value;}});box3.addEventListener('click',function(){box3.select();});(function(_inp,_box){var _tm=null;var _copy=function(){copyCol(_inp.value);};_box.addEventListener('touchstart',function(){_tm=setTimeout(_copy,450);},{passive:true});_box.addEventListener('touchend',function(){if(_tm)clearTimeout(_tm);});_box.addEventListener('touchmove',function(){if(_tm)clearTimeout(_tm);});_box.addEventListener('mousedown',function(){_tm=setTimeout(_copy,450);});_box.addEventListener('mouseup',function(){if(_tm)clearTimeout(_tm);});_box.addEventListener('mouseleave',function(){if(_tm)clearTimeout(_tm);});_box.addEventListener('click',_copy);_inp.addEventListener('input',function(){_box.style.background=_inp.value;try{var _b3=_box.nextSibling&&_box.nextSibling.nextSibling;if(_b3&&_b3.tagName=='INPUT')_b3.value=_inp.value;}catch(e){}});})(inp,box);if(inp.parentNode){inp.parentNode.insertBefore(box,inp.nextSibling);inp.parentNode.insertBefore(box2,box.nextSibling);inp.parentNode.insertBefore(box3,box2.nextSibling);}}}
+
+// --- SELETTORE COLORE PERSONALIZZATO: fuori come prima, codice dentro il popup ---
+var customColors = [];
+try{customColors = JSON.parse(localStorage.getItem('fmp_customColors')||'[]');}catch(e){customColors=[];}
+var _presetColors = ['#FF1A1A','#FF6A00','#FFD500','#00C853','#00B0FF','#1A237E','#7B1FA2','#FF4081','#FFFFFF','#000000','#808080','#8D6E63','#FFEB3B','#00E676','#FF1744','#2979FF','#00BCD4','#FF9800','#795548','#9E9E9E','#E91E63','#3F51B5','#009688','#CDDC39'];
+function openCustomColorPicker(inp){
+  var oldModal = document.getElementById('fmpColorModal');
+  if(oldModal) oldModal.remove();
+  var cur = (inp.value||'#888888').toUpperCase();
+  var modal = document.createElement('div');
+  modal.id='fmpColorModal';
+  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px;box-sizing:border-box';
+  var box = document.createElement('div');
+  box.style.cssText='background:#1a1a1a;border:2px solid #fff;border-radius:16px;width:100%;max-width:360px;padding:16px;box-sizing:border-box;max-height:90vh;overflow-y:auto';
+  var presetsHtml = '';
+  for(var i=0;i<_presetColors.length;i++){presetsHtml += '<button data-c="'+_presetColors[i]+'" style="width:38px;height:38px;border-radius:9px;border:2px solid #fff;background:'+_presetColors[i]+';cursor:pointer;padding:0"></button>';}
+  var customHtml = '';
+  for(var j=0;j<customColors.length;j++){customHtml += '<button data-c="'+customColors[j]+'" style="width:38px;height:38px;border-radius:9px;border:2px solid #FFD500;background:'+customColors[j]+';cursor:pointer;padding:0" title="'+customColors[j]+'"></button>';}
+  box.innerHTML =
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><b style="color:#fff;font-size:16px">COLORE</b><button id="fmpColClose" style="background:#333;color:#fff;border:1px solid #fff;border-radius:8px;padding:6px 12px;font-weight:900">X</button></div>'+
+    '<div id="fmpColPreview" style="height:56px;border-radius:12px;border:2px solid #fff;background:'+cur+';margin-bottom:12px"></div>'+
+    '<label style="color:#ccc;font-size:12px;font-weight:900">CODICE COLORE - SCRIVI QUI, es. #FF1A1A</label>'+
+    '<input id="fmpColCode" type="text" value="'+cur+'" style="width:100%;padding:12px;border-radius:10px;background:#222;color:#fff;font-weight:900;font-size:16px;text-align:center;border:2px solid #fff;margin:6px 0 10px;box-sizing:border-box;text-transform:uppercase" placeholder="#FF1A1A">'+
+    '<label style="color:#ccc;font-size:12px;font-weight:900">SCEGLI DAL SELETTORE</label>'+
+    '<input id="fmpColNative" type="color" value="'+cur+'" style="width:100%;height:44px;border-radius:10px;padding:0;margin:6px 0 12px;border:2px solid #fff;background:#222">'+
+    '<div style="display:flex;gap:8px;margin-bottom:12px"><button id="fmpColCopy" style="flex:1;background:#333;color:#fff;border:1px solid #fff;border-radius:10px;padding:10px;font-weight:900">COPIA</button><button id="fmpColPaste" style="flex:1;background:#FFD500;color:#000;border-radius:10px;padding:10px;font-weight:900">INCOLLA</button></div>'+
+    '<label style="color:#ccc;font-size:12px;font-weight:900">COLORI VELOCI</label>'+
+    '<div id="fmpColPresets" style="display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px">'+presetsHtml+'</div>'+
+    '<label style="color:#FFD500;font-size:12px;font-weight:900">I MIEI COLORI PERSONALIZZATI</label>'+
+    '<div id="fmpColCustom" style="display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 6px">'+(customHtml||'<span style="color:#888;font-size:12px">Nessuno ancora - scrivi un codice e premi + SALVA COLORE</span>')+'</div>'+
+    '<button id="fmpColSaveCustom" style="width:100%;background:#222;color:#FFD500;border:1px dashed #FFD500;border-radius:10px;padding:10px;font-weight:900;margin-bottom:12px">+ SALVA QUESTO CODICE NEI MIEI COLORI</button>'+
+    '<div style="display:flex;gap:8px"><button id="fmpColCancel" style="flex:1;background:#333;color:#fff;border:1px solid #888;border-radius:10px;padding:12px;font-weight:900">ANNULLA</button><button id="fmpColOk" style="flex:1;background:#FF1A1A;color:#fff;border-radius:10px;padding:12px;font-weight:900">CONFERMA</button></div>';
+  modal.appendChild(box);
+  document.body.appendChild(modal);
+  var codeIn = box.querySelector('#fmpColCode');
+  var nativeIn = box.querySelector('#fmpColNative');
+  var preview = box.querySelector('#fmpColPreview');
+  var setCol = function(v){ v=String(v||'').trim(); if(v&&v[0]!='#') v='#'+v; v=v.toUpperCase(); if(/^#[0-9A-F]{6}$/.test(v)){ preview.style.background=v; nativeIn.value=v; if(document.activeElement!==codeIn) codeIn.value=v; return v; } return null; };
+  codeIn.addEventListener('input', function(){ setCol(codeIn.value); });
+  nativeIn.addEventListener('input', function(){ setCol(nativeIn.value); });
+  var allBtns = box.querySelectorAll('#fmpColPresets button, #fmpColCustom button');
+  for(var k=0;k<allBtns.length;k++){ (function(b){ b.addEventListener('click', function(){ setCol(b.getAttribute('data-c')); }); })(allBtns[k]); }
+  box.querySelector('#fmpColCopy').addEventListener('click', function(){ try{ if(navigator.clipboard) navigator.clipboard.writeText(codeIn.value); }catch(e){} copiedCol = codeIn.value; alert('Copiato '+codeIn.value); });
+  box.querySelector('#fmpColPaste').addEventListener('click', function(){ if(!copiedCol){ alert('Prima premi COPIA su un altro colore'); return; } setCol(copiedCol); });
+  box.querySelector('#fmpColSaveCustom').addEventListener('click', function(){ var v=setCol(codeIn.value); if(!v){ alert('Scrivi prima un codice valido, es. #FF1A1A'); return; } if(customColors.indexOf(v)==-1){ customColors.push(v); try{localStorage.setItem('fmp_customColors', JSON.stringify(customColors));}catch(e){} } var cDiv=box.querySelector('#fmpColCustom'); var nb=document.createElement('button'); nb.setAttribute('data-c',v); nb.style.cssText='width:38px;height:38px;border-radius:9px;border:2px solid #FFD500;background:'+v+';cursor:pointer;padding:0'; nb.addEventListener('click', function(){ setCol(v); }); cDiv.appendChild(nb); alert('Salvato '+v+' nei tuoi colori'); });
+  var close = function(){ modal.remove(); };
+  box.querySelector('#fmpColClose').addEventListener('click', close);
+  box.querySelector('#fmpColCancel').addEventListener('click', close);
+  modal.addEventListener('click', function(e){ if(e.target===modal) close(); });
+  box.querySelector('#fmpColOk').addEventListener('click', function(){ var v=setCol(codeIn.value); if(!v){ alert('Scrivi un codice così: #FF1A1A'); return; } inp.value=v; inp.dispatchEvent(new Event('input',{bubbles:true})); inp.dispatchEvent(new Event('change',{bubbles:true})); if(inp.onchange) inp.onchange.call(inp); modal.remove(); });
+  setTimeout(function(){ codeIn.focus(); }, 50);
+}
+function attachCopyColor(){
+  var inputs=document.querySelectorAll('input[type="color"]');
+  for(var i=0;i<inputs.length;i++){
+    var inp=inputs[i];
+    // Fuori come prima: solo il quadratino, nessun COPIA/INCOLLA/codice fuori. Ma il click apre il popup personalizzato, non quello di Android.
+    // Ripristina stile normale, togli eventuali box vecchi
+    if(inp.getAttribute('data-fmp-custom')==='1') continue;
+    inp.setAttribute('data-fmp-custom','1');
+    inp.style.cssText='width:52px;height:38px;padding:0;border-radius:9px;flex-shrink:0;margin:0';
+    // Togli eventuali box COPIA/INCOLLA/# rimasti da versioni vecchie
+    var sib=inp.nextSibling;
+    while(sib && sib.nodeType===1 && (String(sib.className||'').indexOf('copyColBox')>=0 || sib.tagName==='INPUT')){
+      var nxt=sib.nextSibling; if(sib.parentNode) sib.parentNode.removeChild(sib); sib=nxt; if(sib && sib.tagName!=='INPUT') break;
+    }
+    // Intercetta il click: apri popup mio invece di quello nativo
+    inp.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); openCustomColorPicker(this); });
+    inp.addEventListener('mousedown', function(e){ e.preventDefault(); });
+  }
+}
 function render(){
+
 fixFlags();ensureIds();save();
 document.getElementById('seasonYear').innerHTML=seasonYear;
 var sc=document.getElementById('seasonCamp');if(camp=='F1MP'&&bLogo1){sc.innerHTML='<img src="'+bLogo1+'">'}else if(camp=='F2MP'&&bLogo2){sc.innerHTML='<img src="'+bLogo2+'">'}else{sc.innerHTML=camp}
