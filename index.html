@@ -252,7 +252,7 @@ function teamCol(p){if(tC[p.t])return tC[p.t];return p.col||'#888888'}
 function teamNameOf(code){var n=teams[code]||code;if(n.indexOf('Team ')==0)n=n.substring(5);return n}
 function isLight(col){try{var h=col.replace('#','');var r=parseInt(h.substring(0,2),16),g=parseInt(h.substring(2,4),16),b=parseInt(h.substring(4,6),16);var lum=(0.299*r+0.587*g+0.114*b)/255;return lum>0.65}catch(e){return false}}
 function autoNameCol(col){return isLight(col)?'#000000':'#FFFFFF'}
-function teamNameCol(code){if(tNC[code] && String(tNC[code]).toLowerCase()!=String(tC[code]||'').toLowerCase())return tNC[code];return autoNameCol(tC[code]||'#888888')}
+function teamNameCol(code){if(tNC[code] && String(tNC[code]).trim()!=='')return tNC[code];return autoNameCol(tC[code]||'#888888')}
 function pilotNameCol(p){if(p.nc)return p.nc;return teamNameCol(p.t)}
 function nameColor(col,manual){var c=manual||autoNameCol(col);return 'color:'+c+';text-shadow:0 2px 3px rgba(0,0,0,.5)'}
 function ptsColor(col){var c=String(col||'#888888');if(c.toLowerCase()=='#000000'||c.toLowerCase()=='#000')c='#FFFFFF';return 'color:'+c+';text-shadow:0 2px 3px rgba(0,0,0,.6)'}
